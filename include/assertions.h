@@ -5,7 +5,6 @@
 #include "abort.h"
 #include "params.h"
 
-
 int assert_success(const char *expr, const char *file, size_t lineno);
 int assert_fail(const char *expr, const char *file, size_t lineno);
 int print_stats();
@@ -20,17 +19,22 @@ int pop_success();
          ? assert_success(#expr, __FILE__, __LINE__) \
          : assert_fail(#expr, __FILE__, __LINE__))
 
-#define EXPECT_ABORTED()                                       \
+#define EXPECT_ABORTED()                                                          \
     (__has_abort() > 0) ? assert_success("abortion occured ", __FILE__, __LINE__) \
-                      : assert_fail("no abortion occured", __FILE__, __LINE__)
+                        : assert_fail("no abortion occured", __FILE__, __LINE__)
 
-#define EXPECT_UNABORTED()                                       \
+#define EXPECT_UNABORTED()                                                            \
     (__has_abort() == 0) ? assert_success("no abortion occured ", __FILE__, __LINE__) \
-                      : assert_fail("abortion occured", __FILE__, __LINE__)
+                         : assert_fail("abortion occured", __FILE__, __LINE__)
 
 #define ASSERT_EQ(expr, expected)                                          \
     (((expr == expected))                                                  \
-         ? assert_success(#expr(expr) " = " #expected, __FILE__, __LINE__) \
+         ? assert_success(#expr " = " #expected, __FILE__, __LINE__) \
          : assert_fail(#expr " != " #expected, __FILE__, __LINE__))
 
 #define ASSERT_STR_EQ(left, right) ASSERT(strcmp(left, right) == 0)
+
+#define ASSERT_EQ_EPS(expr, expected, eps)                                    \
+    ((fabs(expr - expected) < eps)                                         \
+         ? assert_success(#expr " ~ " #expected, __FILE__, __LINE__) \
+         : assert_fail(#expr " !~ " #expected, __FILE__, __LINE__))

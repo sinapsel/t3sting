@@ -50,9 +50,9 @@ int assert_success(const char *expr, const char *file, size_t lineno)
 
 int print_stats()
 {
-    fprintf(stderr, ENDL ENDL "%ld of %ld tests passed. %.2f SUCCEEDED" ENDL,
+    fprintf(stderr, ENDL ENDL "%ld of %ld tests passed. %.2f%% SUCCEEDED" ENDL,
             success_count,
             fail_count + success_count,
-            (float)success_count / (float)(fail_count + success_count));
+            (float)success_count / (float)(fail_count + success_count)*100);
     return fail_count != 0;
 }

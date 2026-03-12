@@ -32,6 +32,11 @@ int pop_success();
          ? assert_success(#expr " = " #expected, __FILE__, __LINE__) \
          : assert_fail(#expr " != " #expected, __FILE__, __LINE__))
 
+#define ASSERT_NEQ(expr, expected)                                          \
+    (((expr != expected))                                                  \
+         ? assert_success(#expr " != " #expected, __FILE__, __LINE__) \
+         : assert_fail(#expr " = " #expected, __FILE__, __LINE__))
+
 #define ASSERT_STR_EQ(left, right) ASSERT(strcmp(left, right) == 0)
 
 #define ASSERT_EQ_EPS(expr, expected, eps)                                    \

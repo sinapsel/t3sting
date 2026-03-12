@@ -32,11 +32,11 @@ void run_test()
         int succs = pop_success();
         int all = pop_fail() + succs;
 #if TEST_VERBOSITY >= TEST_NORMAL
-        fprintf(stderr, "\n===%d of %d tests passed"
-                        "%.2f SUCCEEDED"
+        fprintf(stderr, "\n===%d of %d tests passed "
+                        "%.2f%% SUCCEEDED"
                         "===\n\n",
                 succs, all,
-                (float)succs / (float)all);
+                (float)succs / (float)all * 100.0);
 #else
         if (all - succs > 0)
         {
